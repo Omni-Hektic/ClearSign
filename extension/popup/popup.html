@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ClearSign</title>
+  <link rel="stylesheet" href="../styles/popup.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⚖</span>
+      <span class="logo-text">ClearSign</span>
+    </div>
+    <div id="risk-badge" class="risk-badge hidden"></div>
+  </header>
+
+  <div id="state-idle" class="state">
+    <p class="hint">Open a Terms of Service, Privacy Policy, or contract page, then click Analyze.</p>
+    <button id="btn-analyze" class="btn-primary">Analyze This Page</button>
+  </div>
+
+  <div id="state-loading" class="state hidden">
+    <div class="spinner"></div>
+    <p>Reading the document…</p>
+  </div>
+
+  <div id="state-result" class="state hidden">
+    <div id="summary-sections"></div>
+    <div class="footer-actions">
+      <button id="btn-copy" class="btn-secondary">Copy Summary</button>
+      <button id="btn-reanalyze" class="btn-ghost">Re-analyze</button>
+    </div>
+  </div>
+
+  <div id="state-error" class="state hidden">
+    <p class="error-msg" id="error-text"></p>
+    <button id="btn-retry" class="btn-primary">Retry</button>
+  </div>
+
+  <div id="state-no-key" class="state hidden">
+    <p class="hint">Add your OpenRouter API key in settings to get started.</p>
+    <button id="btn-settings" class="btn-primary">Open Settings</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

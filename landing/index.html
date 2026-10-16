@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClearSign — Read Before You Sign</title>
+  <style>
+    :root {
+      --bg: #0a0c14; --surface: #12151f; --border: #1e2235;
+      --text: #e8eaf0; --muted: #6b7090; --accent: #6c8cff;
+      --green: #4ade80; --yellow: #fbbf24; --red: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 20px; font-weight: 800; color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff; border: none; padding: 9px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+
+    .hero { text-align: center; padding: 100px 20px 80px; max-width: 760px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: #12153a; color: var(--accent); border: 1px solid var(--accent); font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 24px; letter-spacing: 0.05em; }
+    .hero h1 { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 18px; line-height: 1.6; margin-bottom: 40px; }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none; }
+    .btn-primary-lg { background: var(--accent); color: #fff; border: none; }
+    .btn-outline-lg { background: transparent; color: var(--text); border: 2px solid var(--border); }
+    .btn-outline-lg:hover { border-color: var(--accent); }
+
+    .features { padding: 80px 60px; max-width: 1100px; margin: 0 auto; }
+    .features h2 { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 14px; }
+    .features-sub { text-align: center; color: var(--muted); margin-bottom: 56px; font-size: 16px; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+    .feature-icon { font-size: 28px; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 17px; margin-bottom: 8px; }
+    .feature-card p { color: var(--muted); line-height: 1.6; font-size: 14px; }
+
+    .risk-demo { padding: 80px 60px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .risk-demo-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .risk-demo h2 { font-size: 32px; font-weight: 800; margin-bottom: 40px; }
+    .demo-sections { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+    .demo-section { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .demo-section.red    { border-left: 4px solid var(--red); }
+    .demo-section.yellow { border-left: 4px solid var(--yellow); }
+    .demo-section.green  { border-left: 4px solid var(--green); }
+    .demo-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; }
+    .demo-text { font-size: 14px; line-height: 1.55; }
+
+    .pricing { padding: 80px 60px; max-width: 900px; margin: 0 auto; }
+    .pricing h2 { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 14px; }
+    .pricing-sub { text-align: center; color: var(--muted); margin-bottom: 56px; font-size: 16px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+    .plan { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+    .plan.featured { border-color: var(--accent); }
+    .plan-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 8px; }
+    .plan-price { font-size: 36px; font-weight: 800; margin-bottom: 4px; }
+    .plan-price span { font-size: 16px; font-weight: 400; color: var(--muted); }
+    .plan-desc { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+    .plan ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .plan ul li { font-size: 14px; color: var(--muted); }
+    .plan ul li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+
+    footer { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero h1 { font-size: 36px; }
+      .features, .pricing { padding: 60px 20px; }
+      .risk-demo { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">⚖ ClearSign</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+  </div>
+  <a href="#" class="nav-cta">Add to Chrome</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">BROWSER EXTENSION</div>
+  <h1>Nobody should sign<br>what they <span>don't understand</span></h1>
+  <p>ClearSign translates Terms of Service, Privacy Policies, and contracts into plain English — instantly, at the point of decision.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn-lg btn-primary-lg">Add to Chrome — It's Free</a>
+    <a href="#features" class="btn-lg btn-outline-lg">See How It Works</a>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <h2>Everything you need to read the fine print</h2>
+  <p class="features-sub">No more scanning 40 pages of legalese. ClearSign does it in seconds.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant Analysis</h3>
+      <p>Click once. Get a plain-English breakdown of any legal document in under 10 seconds.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚦</div>
+      <h3>Risk Scoring</h3>
+      <p>Each clause gets a red / yellow / green rating so you can focus on what actually matters.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy First</h3>
+      <p>Documents are never stored on our servers. Analysis happens directly through your chosen API key.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>Your Model, Your Choice</h3>
+      <p>Use GPT-4o, Claude, Gemini, or any OpenRouter model. Bring your own key — no markup.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>One-Click Copy</h3>
+      <p>Copy the full summary to your clipboard to share with colleagues, lawyers, or save for your records.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h3>Auto-Detection</h3>
+      <p>ClearSign detects when you land on a legal page and badges the extension icon automatically.</p>
+    </div>
+  </div>
+</section>
+
+<section class="risk-demo">
+  <div class="risk-demo-inner">
+    <h2>See it in action</h2>
+    <div class="demo-sections">
+      <div class="demo-section red">
+        <div class="demo-label">⚠ Data Sharing — High Risk</div>
+        <div class="demo-text">Your data is shared with "partners and affiliates" with no list provided. This means they can sell your information to anyone they choose to call a partner.</div>
+      </div>
+      <div class="demo-section yellow">
+        <div class="demo-label">△ Arbitration — Medium Risk</div>
+        <div class="demo-text">All disputes must go through private arbitration. You waive your right to sue in court or join a class action. May limit your legal options.</div>
+      </div>
+      <div class="demo-section green">
+        <div class="demo-label">✓ Cancellation — Low Risk</div>
+        <div class="demo-text">You can cancel at any time from Account Settings. No cancellation fees. Refunds are available within 30 days of any charge.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <h2>Simple pricing</h2>
+  <p class="pricing-sub">Start free. Upgrade when you need more.</p>
+  <div class="pricing-grid">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">$0 <span>/mo</span></div>
+      <div class="plan-desc">For casual users</div>
+      <ul>
+        <li>5 analyses per month</li>
+        <li>Basic risk flags</li>
+        <li>All model support</li>
+        <li>Copy to clipboard</li>
+      </ul>
+    </div>
+    <div class="plan featured">
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">$8 <span>/mo</span></div>
+      <div class="plan-desc">For power users</div>
+      <ul>
+        <li>Unlimited analyses</li>
+        <li>Full risk breakdown</li>
+        <li>Document history</li>
+        <li>Side-by-side compare</li>
+        <li>Custom clause alerts</li>
+      </ul>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Business</div>
+      <div class="plan-price">$49 <span>/mo</span></div>
+      <div class="plan-desc">For teams</div>
+      <ul>
+        <li>Everything in Pro</li>
+        <li>Team dashboard</li>
+        <li>API access</li>
+        <li>SSO / SAML</li>
+        <li>Priority support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>⚖ ClearSign &mdash; Read before you sign.</p>
+</footer>
+
+</body>
+</html>

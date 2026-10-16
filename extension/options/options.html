@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ClearSign Settings</title>
+  <link rel="stylesheet" href="../styles/popup.css">
+  <style>
+    body { width: 480px; padding: 24px; }
+    h2 { color: var(--accent); font-size: 18px; margin-bottom: 4px; }
+    .subtitle { color: var(--muted); margin-bottom: 20px; font-size: 13px; }
+    .save-row { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+    .save-status { color: var(--green); font-size: 12px; opacity: 0; transition: opacity 0.3s; }
+    .save-status.show { opacity: 1; }
+    .usage-bar-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; height: 6px; margin-top: 6px; overflow: hidden; }
+    .usage-bar { height: 100%; background: var(--accent); transition: width 0.4s; }
+  </style>
+</head>
+<body>
+  <h2>⚖ ClearSign</h2>
+  <p class="subtitle">Settings &amp; API Configuration</p>
+
+  <label>OpenRouter API Key</label>
+  <input type="password" id="apiKey" placeholder="sk-or-v1-...">
+
+  <label>Model</label>
+  <select id="model">
+    <option value="openai/gpt-4o-mini">GPT-4o Mini (fast, cheap)</option>
+    <option value="openai/gpt-4o">GPT-4o (best accuracy)</option>
+    <option value="anthropic/claude-haiku-5.5">Claude Haiku 5.5 (fast)</option>
+    <option value="anthropic/claude-sonnet-5.5">Claude Sonnet 5.5 (balanced)</option>
+    <option value="google/gemini-2.5-flash">Gemini 2.5 Flash</option>
+    <option value="deepseek/deepseek-chat">DeepSeek Chat (economical)</option>
+  </select>
+
+  <label>Monthly Budget (USD, 0 = unlimited)</label>
+  <input type="text" id="budget" placeholder="e.g. 5">
+
+  <div class="save-row">
+    <button class="btn-primary" id="btn-save" style="width:auto;padding:9px 24px;">Save</button>
+    <span class="save-status" id="save-status">Saved ✓</span>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
