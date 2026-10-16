@@ -11,26 +11,78 @@
     .save-row { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
     .save-status { color: var(--green); font-size: 12px; opacity: 0; transition: opacity 0.3s; }
     .save-status.show { opacity: 1; }
-    .usage-bar-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; height: 6px; margin-top: 6px; overflow: hidden; }
-    .usage-bar { height: 100%; background: var(--accent); transition: width 0.4s; }
+    .provider-section { display: none; }
+    .provider-section.active { display: block; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
   </style>
 </head>
 <body>
   <h2>⚖ ClearSign</h2>
   <p class="subtitle">Settings &amp; API Configuration</p>
 
-  <label>OpenRouter API Key</label>
-  <input type="password" id="apiKey" placeholder="sk-or-v1-...">
-
-  <label>Model</label>
-  <select id="model">
-    <option value="openai/gpt-4o-mini">GPT-4o Mini (fast, cheap)</option>
-    <option value="openai/gpt-4o">GPT-4o (best accuracy)</option>
-    <option value="anthropic/claude-haiku-5.5">Claude Haiku 5.5 (fast)</option>
-    <option value="anthropic/claude-sonnet-5.5">Claude Sonnet 5.5 (balanced)</option>
-    <option value="google/gemini-2.5-flash">Gemini 2.5 Flash</option>
-    <option value="deepseek/deepseek-chat">DeepSeek Chat (economical)</option>
+  <label>Provider</label>
+  <select id="provider" onchange="switchProvider()">
+    <option value="openrouter">OpenRouter</option>
+    <option value="groq">Groq</option>
+    <option value="bedrock">AWS Bedrock</option>
   </select>
+
+  <hr class="divider">
+
+  <!-- OpenRouter -->
+  <div id="section-openrouter" class="provider-section active">
+    <label>OpenRouter API Key</label>
+    <input type="password" id="orKey" placeholder="sk-or-v1-...">
+    <label>Model</label>
+    <select id="orModel">
+      <option value="openai/gpt-4o-mini">GPT-4o Mini (fast, cheap)</option>
+      <option value="openai/gpt-4o">GPT-4o (best accuracy)</option>
+      <option value="anthropic/claude-haiku-5.5">Claude Haiku 5.5 (fast)</option>
+      <option value="anthropic/claude-sonnet-5.5">Claude Sonnet 5.5 (balanced)</option>
+      <option value="google/gemini-2.5-flash">Gemini 2.5 Flash</option>
+      <option value="deepseek/deepseek-chat">DeepSeek Chat (economical)</option>
+      <option value="google/gemma-4-31b-it:free">Gemma 4 31B (free)</option>
+      <option value="thinkingmachines/inkling:free">Inkling (free)</option>
+    </select>
+  </div>
+
+  <!-- Groq -->
+  <div id="section-groq" class="provider-section">
+    <label>Groq API Key</label>
+    <input type="password" id="groqKey" placeholder="gsk_...">
+    <label>Model</label>
+    <select id="groqModel">
+      <option value="llama-3.3-70b-versatile">Llama 3.3 70B (versatile)</option>
+      <option value="llama-3.1-8b-instant">Llama 3.1 8B (fast)</option>
+      <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+      <option value="gemma2-9b-it">Gemma 2 9B</option>
+      <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 Distill 70B</option>
+    </select>
+  </div>
+
+  <!-- AWS Bedrock -->
+  <div id="section-bedrock" class="provider-section">
+    <label>AWS Access Key ID</label>
+    <input type="password" id="awsKeyId" placeholder="AKIA...">
+    <label>AWS Secret Access Key</label>
+    <input type="password" id="awsSecret" placeholder="...">
+    <label>AWS Region</label>
+    <select id="awsRegion">
+      <option value="us-east-1">us-east-1 (N. Virginia)</option>
+      <option value="us-west-2">us-west-2 (Oregon)</option>
+      <option value="eu-west-1">eu-west-1 (Ireland)</option>
+      <option value="ap-southeast-1">ap-southeast-1 (Singapore)</option>
+    </select>
+    <label>Model</label>
+    <select id="bedrockModel">
+      <option value="anthropic.claude-3-5-sonnet-20241022-v2:0">Claude 3.5 Sonnet v2 (best)</option>
+      <option value="anthropic.claude-3-haiku-20240307-v1:0">Claude 3 Haiku (fast)</option>
+      <option value="amazon.titan-text-express-v1">Amazon Titan Express</option>
+      <option value="meta.llama3-8b-instruct-v1:0">Llama 3 8B Instruct</option>
+    </select>
+  </div>
+
+  <hr class="divider">
 
   <label>Monthly Budget (USD, 0 = unlimited)</label>
   <input type="text" id="budget" placeholder="e.g. 5">
